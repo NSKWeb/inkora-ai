@@ -1,8 +1,6 @@
 # Inkora AI
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/public/brand/inkora-mark.svg" width="92" alt="Inkora AI feather and open-book mark" />
-</p>
+![Inkora AI feather and open-book mark](./public/brand/inkora-mark.svg)
 
 <h3 align="center">Research. Write. Publish.</h3>
 <p align="center">Turn a small idea into a thoughtful, evidence-aware, search-ready article.</p>
@@ -42,9 +40,7 @@ It is designed as a complete writing workflow rather than a one-click text gener
 
 ## Product workflow
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/docs/assets/inkora-workflow.svg" alt="Inkora AI workflow: idea, research, outline and draft, review and refine, publish" width="100%">
-</p>
+![Inkora AI workflow: idea, research, outline and draft, review and refine, publish](./docs/assets/inkora-workflow.svg)
 
 | Stage | What happens | Intended result |
 |---|---|---|
@@ -73,9 +69,7 @@ It is designed as a complete writing workflow rather than a one-click text gener
 
 Inkora should feel like a thoughtful writing desk: warm, quiet, tactile and focused. The visual language uses natural paper tones, deep ink-like typography and restrained terracotta accents.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/public/brand/inkora-mark.svg" alt="Inkora AI brand mark" width="100">
-</p>
+![Inkora AI brand mark](./public/brand/inkora-mark.svg)
 
 | Token | Suggested color | Usage |
 |---|---|---|
@@ -112,9 +106,7 @@ The editor visual is a **concept illustration**, not a screenshot of a completed
 
 The system is intended to keep the interface, orchestration, research services, model providers, persistence and publishing adapters independent. This makes providers replaceable and helps prevent UI code from becoming coupled to a single AI vendor.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/docs/assets/inkora-architecture.svg" alt="Inkora AI conceptual architecture showing experience, orchestration, research, model, data and delivery layers" width="100%">
-</p>
+![Inkora AI architecture explained: experience, orchestration, research, model, data, delivery and end-to-end flow](./docs/assets/inkora-architecture.svg)
 
 ### How the architecture works
 
