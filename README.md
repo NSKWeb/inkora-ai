@@ -403,8 +403,8 @@ For the first local prototype, start with:
 3. **Tavily Free** — primary research provider with its monthly credit allowance.
 4. **Groq Free** — optional alternative model provider.
 5. **OpenRouter Free models** — optional model fallback; explicitly select free model IDs.
-7. **Nara Router** — leave blank until free access and the adapter are verified.
-8. **Integration encryption key** — generate only when encrypted credential storage is implemented.
+6. **Nara Router** — leave blank until free access and the adapter are verified.
+7. **Integration encryption key** — generate only when encrypted credential storage is implemented.
 
 You do not need to fill every variable to run the starter UI. Start with blank values for integrations that are not yet implemented.
 
