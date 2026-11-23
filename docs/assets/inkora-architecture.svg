@@ -46,7 +46,7 @@
 <circle cx="92" cy="558" r="21" fill="#a66f55"/><text x="92" y="564" text-anchor="middle" class="num">3</text>
 <text x="130" y="555" class="layer">RESEARCH ADAPTERS</text>
 <text x="85" y="594" class="body">Connect to supported search services</text>
-<text x="85" y="623" class="body">Gemini Search grounding · Tavily · Brave</text>
+<text x="85" y="623" class="body">Gemini Search grounding · Tavily</text>
 <text x="85" y="654" class="small">Normalize results into consistent source records:</text>
 <text x="85" y="679" class="small">title · URL · publisher · available metadata</text>
 
