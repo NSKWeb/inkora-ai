@@ -101,7 +101,6 @@ The system is intended to keep the interface, orchestration, research services, 
 flowchart TB
     U["1. EXPERIENCE LAYER<br/>Next.js · React · TypeScript<br/>Brief form · workspace · editor · SEO review"]
     O["2. APPLICATION ORCHESTRATION<br/>Validates input · permissions · rate limits<br/>Workflow state · provider calls · job coordination"]
-    R["3. RESEARCH ADAPTERS<br/>Gemini Search grounding · Tavily · Brave<br/>Collect and normalize source metadata"]
     M["4. MODEL ADAPTERS<br/>Gemini · OpenRouter · Groq<br/>Draft · rewrite · summarize"]
     DB[("5. DATA & AUTHENTICATION<br/>Supabase · PostgreSQL<br/>Accounts · projects · drafts · source records")]
     P["6. DELIVERY & PUBLISHING<br/>Markdown · HTML · DOCX<br/>WordPress draft via REST API"]
@@ -165,7 +164,6 @@ The architecture is organized as a request-and-response pipeline. Each layer has
 | Editor | TipTap | Rich-text article editing |
 | Database & auth | Supabase / PostgreSQL | Persistence and authentication |
 | Validation | Zod | Input and provider response validation |
-| Research | Gemini Search grounding, Tavily, Brave | Source discovery |
 | Model inference | Gemini, OpenRouter, Groq | AI writing and editing |
 | Publishing | WordPress REST API | CMS draft and publishing workflow |
 | Runtime | Node.js / Docker | Portable deployment |
@@ -179,7 +177,6 @@ Research and model inference are separate concerns:
 **Research providers (planned)**
 - Gemini search grounding, where supported by the selected Gemini API.
 - Tavily Search.
-- Brave Search.
 
 **Model providers (planned)**
 - Google Gemini.
@@ -283,7 +280,6 @@ GROQ_API_KEY=
 
 # Research providers — server only
 TAVILY_API_KEY=
-BRAVE_SEARCH_API_KEY=
 
 # Optional provider — do not assume free availability
 NARA_ROUTER_API_KEY=
@@ -373,22 +369,6 @@ Official links: [Groq Console](https://console.groq.com/) · [Quickstart](https:
 
 Official links: [Tavily Dashboard](https://app.tavily.com/) · [Pricing and free allowance](https://www.tavily.com/pricing)
 
-#### 6. Brave Search API — additional research provider
-
-<badge color="warning">Monthly credits with card verification</badge>
-
-**Free allowance:** Brave currently advertises $5 in monthly credits on its Search API plan (equivalent to about 1,000 Search requests at the published $5 per 1,000 request rate). This is not a standalone no-card free plan: accessing the credit without adding a prepaid balance may require a payment card and a $0/$1 verification hold. Check the current dashboard terms before activating it.
-
-1. Open [Brave Search API Dashboard](https://api-dashboard.search.brave.com/).
-2. Create an account and verify your email.
-3. Open **Plans** and choose the Search API plan.
-4. Review the current payment-card and monthly-credit conditions before activating.
-5. Open **API Keys**, create a key and copy it.
-6. Add it to `BRAVE_SEARCH_API_KEY`.
-7. Monitor usage and do not assume requests beyond the monthly credit are free.
-
-Official links: [Brave Search API](https://brave.com/search/api/) · [API dashboard](https://api-dashboard.search.brave.com/) · [Free-credit FAQ](https://api-dashboard.search.brave.com/documentation/resources/help-feedback)
-
 #### 7. Nara Router — optional, not included in the free-first baseline
 
 The repository may reserve `NARA_ROUTER_API_KEY` for a future adapter, but a free allowance has not been verified for this setup. Do not create an account, add payment details or depend on this provider as part of the no-cost setup until its current pricing, API contract, supported models and adapter implementation have been checked.
@@ -422,7 +402,6 @@ For the first local prototype, start with:
 3. **Tavily Free** — primary research provider with its monthly credit allowance.
 4. **Groq Free** — optional alternative model provider.
 5. **OpenRouter Free models** — optional model fallback; explicitly select free model IDs.
-6. **Brave Search** — optional; use only if you accept the card-verification requirement for monthly credits.
 7. **Nara Router** — leave blank until free access and the adapter are verified.
 8. **Integration encryption key** — generate only when encrypted credential storage is implemented.
 
