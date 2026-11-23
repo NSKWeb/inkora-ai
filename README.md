@@ -262,7 +262,7 @@ Create a local environment file:
 cp .env.example .env.local
 ```
 
-The template may contain placeholders for future integrations. Only configure credentials for features that have actually been implemented.
+The variables below are configuration slots, not proof that every integration is already implemented. Add keys only for providers that you intend to test. The free-first setup guide below explains which services have a usable free allowance and which have conditions.
 
 ```dotenv
 # App
@@ -280,17 +280,164 @@ SUPABASE_SERVICE_ROLE_KEY=
 GEMINI_API_KEY=
 OPENROUTER_API_KEY=
 GROQ_API_KEY=
-NARA_ROUTER_API_KEY=
 
 # Research providers — server only
 TAVILY_API_KEY=
 BRAVE_SEARCH_API_KEY=
 
+# Optional provider — do not assume free availability
+NARA_ROUTER_API_KEY=
+
 # Optional: encryption key for stored integration credentials
 INTEGRATION_ENCRYPTION_KEY=
 ```
 
-**Never commit real API keys.** Server secrets must not use a `NEXT_PUBLIC_` prefix or be exposed in browser code.
+**Never commit real API keys.** Server secrets must not use a `NEXT_PUBLIC_` prefix or be exposed in browser code. Keep `.env.local` out of Git. The public Supabase URL and anon key are designed for client configuration, but database access must still be protected with Row Level Security (RLS). The service-role key bypasses RLS and must remain server-only.
+
+### Free-first API setup guide
+
+This guide prioritizes providers that offer a free tier, free models or recurring promotional credits. Free quotas, eligible models, rate limits and signup requirements can change; check each provider's live dashboard before relying on a quota. A free API key does not mean unlimited usage or guaranteed production capacity.
+
+#### 1. Supabase — database and authentication
+
+**Free option:** Supabase has a Free plan with up to two free projects. The project URL and API keys are configuration credentials; creating a key does not itself incur a per-key charge.
+
+1. Open [Supabase](https://supabase.com/dashboard) and create an account.
+2. Select **New project**, choose an organization, name the project (for example, `inkora-ai`) and set a strong database password.
+3. Choose a region close to your users when available.
+4. Wait for the project to finish provisioning.
+5. Open the project's **Connect** dialog or **Settings → API Keys**.
+6. Copy the Project URL into `NEXT_PUBLIC_SUPABASE_URL`.
+7. Copy the publishable/legacy anon key into `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+8. Copy the secret/legacy service-role key into `SUPABASE_SERVICE_ROLE_KEY`.
+
+**Key compatibility note:** This starter currently documents the legacy variable names `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`. Supabase also provides newer `sb_publishable_...` and `sb_secret_...` keys. Do not rename environment variables until the application code is updated to read those names. A publishable key may be exposed to the browser only with correct RLS policies; never expose a secret/service-role key.
+
+Official links: [Supabase Dashboard](https://supabase.com/dashboard) · [API keys documentation](https://supabase.com/docs/guides/getting-started/api-keys) · [Pricing](https://supabase.com/pricing)
+
+#### 2. Google Gemini — AI writing model
+
+**Free option:** Gemini API offers a free tier for eligible models, with model-specific rate limits and availability. The free tier has its own data-use terms, so do not send confidential user content without reviewing Google's terms.
+
+1. Open [Google AI Studio](https://aistudio.google.com/).
+2. Sign in with your Google account.
+3. Open **Get API key** / **API keys**.
+4. Select or create a Google Cloud project if prompted.
+5. Choose **Create API key** and copy the generated key.
+6. Add it to `GEMINI_API_KEY` in `.env.local`.
+
+Check the current model's free-tier availability and quota in the official pricing page before choosing a model.
+
+Official links: [Google AI Studio](https://aistudio.google.com/) · [Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
+
+#### 3. OpenRouter — access to free models
+
+**Free option:** OpenRouter lists free model variants (usually model IDs ending in `:free`) and currently documents a free account allowance of 50 requests per day. Free models can be rate-limited or unavailable during high demand. Paid models on the same platform are not free.
+
+1. Open [OpenRouter](https://openrouter.ai/).
+2. Create an account and sign in.
+3. Open **Keys** / [API Keys](https://openrouter.ai/settings/keys).
+4. Create a key, give it a recognizable name such as `Inkora AI Development`, and copy it.
+5. Add it to `OPENROUTER_API_KEY`.
+6. In the application/provider configuration, select a model explicitly marked free (for example, a current `:free` model). Do not select a paid model and assume the key makes it free.
+
+OpenRouter's free model catalog changes. Check the current model page and rate limits before building around a particular model.
+
+Official links: [OpenRouter free models](https://openrouter.ai/collections/free-models) · [Pricing](https://openrouter.ai/pricing) · [API keys](https://openrouter.ai/settings/keys)
+
+#### 4. Groq — fast model inference
+
+**Free option:** Groq provides a Free tier with model-specific request and token limits. The exact allowance depends on the model and account; check the Limits page. Upgrading to the Developer tier changes the billing arrangement and requires a payment method, so stay on Free for this setup.
+
+1. Open [Groq Console](https://console.groq.com/).
+2. Create an account and verify/sign in.
+3. Open [API Keys](https://console.groq.com/keys).
+4. Create a key, name it `Inkora AI Development`, and copy it.
+5. Add it to `GROQ_API_KEY`.
+6. Check the model's current limits in the console before selecting it.
+
+Official links: [Groq Console](https://console.groq.com/) · [Quickstart](https://console.groq.com/docs/quickstart) · [Rate limits](https://console.groq.com/docs/rate-limits) · [Billing FAQ](https://console.groq.com/docs/billing-faqs)
+
+#### 5. Tavily — web research and source discovery
+
+<badge color="success">Free plan available</badge>
+
+**Free option:** Tavily's Researcher plan currently includes 1,000 API credits per month and does not require a credit card. Search, extract and crawl operations may consume different amounts of credits. When the allowance is exhausted, requests stop until reset or plan change.
+
+1. Open [Tavily](https://app.tavily.com/).
+2. Create a free account and sign in.
+3. Open the API Keys section in the dashboard.
+4. Copy your API key.
+5. Add it to `TAVILY_API_KEY`.
+6. Monitor credit usage in the dashboard and begin with basic search requests while testing.
+
+Official links: [Tavily Dashboard](https://app.tavily.com/) · [Pricing and free allowance](https://www.tavily.com/pricing)
+
+#### 6. Brave Search API — additional research provider
+
+<badge color="warning">Monthly credits with card verification</badge>
+
+**Free allowance:** Brave currently advertises $5 in monthly credits on its Search API plan (equivalent to about 1,000 Search requests at the published $5 per 1,000 request rate). This is not a standalone no-card free plan: accessing the credit without adding a prepaid balance may require a payment card and a $0/$1 verification hold. Check the current dashboard terms before activating it.
+
+1. Open [Brave Search API Dashboard](https://api-dashboard.search.brave.com/).
+2. Create an account and verify your email.
+3. Open **Plans** and choose the Search API plan.
+4. Review the current payment-card and monthly-credit conditions before activating.
+5. Open **API Keys**, create a key and copy it.
+6. Add it to `BRAVE_SEARCH_API_KEY`.
+7. Monitor usage and do not assume requests beyond the monthly credit are free.
+
+Official links: [Brave Search API](https://brave.com/search/api/) · [API dashboard](https://api-dashboard.search.brave.com/) · [Free-credit FAQ](https://api-dashboard.search.brave.com/documentation/resources/help-feedback)
+
+#### 7. Nara Router — optional, not included in the free-first baseline
+
+The repository may reserve `NARA_ROUTER_API_KEY` for a future adapter, but a free allowance has not been verified for this setup. Do not create an account, add payment details or depend on this provider as part of the no-cost setup until its current pricing, API contract, supported models and adapter implementation have been checked.
+
+Official documentation: [Nara Router API docs](https://router.bynara.id/docs)
+
+#### 8. Integration encryption key — generate locally
+
+This is not an API-provider key and does not require an account. It is a random secret intended for encrypting stored integration credentials if/when that feature is implemented.
+
+Generate 32 random bytes (256 bits) in a trusted terminal:
+
+```bash
+openssl rand -hex 32
+```
+
+Or, if Node.js is available:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Copy the 64-character hexadecimal output into `INTEGRATION_ENCRYPTION_KEY`. Confirm that the eventual encryption implementation expects a 32-byte hex-encoded key and decodes it correctly. Back it up securely: replacing it without a key-rotation/migration process can make previously encrypted credentials unreadable.
+
+#### Recommended no-cost setup order
+
+For the first local prototype, start with:
+
+1. **Supabase Free** — only if you are implementing database/auth features.
+2. **Gemini Free** — primary model to test, using an eligible free-tier model.
+3. **Tavily Free** — primary research provider with its monthly credit allowance.
+4. **Groq Free** — optional alternative model provider.
+5. **OpenRouter Free models** — optional model fallback; explicitly select free model IDs.
+6. **Brave Search** — optional; use only if you accept the card-verification requirement for monthly credits.
+7. **Nara Router** — leave blank until free access and the adapter are verified.
+8. **Integration encryption key** — generate only when encrypted credential storage is implemented.
+
+You do not need to fill every variable to run the starter UI. Start with blank values for integrations that are not yet implemented.
+
+**Cost-safety checklist**
+- [ ] Stay on each provider's Free plan or explicitly free model.
+- [ ] Do not add a payment method or upgrade unless you intentionally choose to.
+- [ ] Review model IDs and quotas before sending production traffic.
+- [ ] Monitor each provider's usage dashboard.
+- [ ] Keep all secret keys in `.env.local` or the deployment platform's secret manager.
+- [ ] Never paste real keys into README, source code, screenshots, issues or chat.
+- [ ] Revoke and replace a key immediately if it is exposed.
+
+**Implementation note:** Adding an environment variable does not implement an integration. Provider adapters, server-side validation, error handling, usage limits and UI configuration still need to be built and tested before Inkora AI can use these services.
 
 ### Run locally
 
