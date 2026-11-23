@@ -38,7 +38,13 @@ It is designed as a complete writing workflow rather than a one-click text gener
 
 ## Product workflow
 
-![Inkora AI workflow: idea, research, outline and draft, review and refine, publish](./docs/assets/inkora-workflow.svg)
+```mermaid
+flowchart LR
+    A["01 · Idea<br/>Topic or brief"] --> B["02 · Research<br/>Collect useful sources"]
+    B --> C["03 · Outline & draft<br/>Plan and write sections"]
+    C --> D["04 · Review<br/>Check claims, citations and SEO"]
+    D --> E["05 · Publish<br/>Export or prepare CMS draft"]
+```
 
 | Stage | What happens | Intended result |
 |---|---|---|
@@ -91,7 +97,35 @@ Inkora should feel like a thoughtful writing desk: warm, quiet, tactile and focu
 
 The system is intended to keep the interface, orchestration, research services, model providers, persistence and publishing adapters independent. This makes providers replaceable and helps prevent UI code from becoming coupled to a single AI vendor.
 
-![Inkora AI architecture explained: experience, orchestration, research, model, data, delivery and end-to-end flow](./docs/assets/inkora-architecture.svg)
+```mermaid
+flowchart TB
+    U["1. EXPERIENCE LAYER<br/>Next.js · React · TypeScript<br/>Brief form · workspace · editor · SEO review"]
+    O["2. APPLICATION ORCHESTRATION<br/>Validates input · permissions · rate limits<br/>Workflow state · provider calls · job coordination"]
+    R["3. RESEARCH ADAPTERS<br/>Gemini Search grounding · Tavily · Brave<br/>Collect and normalize source metadata"]
+    M["4. MODEL ADAPTERS<br/>Gemini · OpenRouter · Groq<br/>Draft · rewrite · summarize"]
+    DB[("5. DATA & AUTHENTICATION<br/>Supabase · PostgreSQL<br/>Accounts · projects · drafts · source records")]
+    P["6. DELIVERY & PUBLISHING<br/>Markdown · HTML · DOCX<br/>WordPress draft via REST API"]
+    U -->|"brief and user actions"| O
+    O -->|"search request"| R
+    O -->|"generation request"| M
+    R -->|"sources for human review"| O
+    M -->|"generated draft"| O
+    O <-->|"save and load authorized work"| DB
+    O -->|"approved article"| P
+```
+
+**How to read this architecture**
+
+1. **Experience:** User-facing workspace, brief form, editor and SEO review.
+2. **Orchestration:** Server-side coordinator for validation, permissions, workflow state, rate limits and provider calls.
+3. **Research:** Search adapters gather and normalize source metadata; users review sources before relying on them.
+4. **Models:** Provider adapters handle drafting, rewriting and summarizing behind a common interface.
+5. **Data:** Supabase/PostgreSQL is the proposed store for accounts, projects, drafts and source records.
+6. **Delivery:** Export files or create a WordPress draft; require confirmation before live publishing.
+
+**Request path:** Brief → validation → research → source/outline review → AI draft → editing and SEO checks → export or CMS draft.
+
+> This is the planned architecture, not a claim that every integration is already implemented.
 
 ### How the architecture works
 
