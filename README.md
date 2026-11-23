@@ -297,7 +297,7 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-> **Repository status note:** this repository is currently being initialized with project documentation. The commands above become runnable when the application scaffold and scripts are committed.
+> **Current status:** the initial Next.js application scaffold, Warm Editorial landing page, theme toggle, project configuration and brand mark are now committed. AI generation, live research integrations, authentication, persistent storage, rich-text editing and WordPress publishing are not implemented yet.
 
 ### Environment variable template
 
