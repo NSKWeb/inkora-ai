@@ -1,7 +1,5 @@
 # Inkora AI
 
-![Inkora AI feather and open-book mark](./public/brand/inkora-mark.svg)
-
 <h3 align="center">Research. Write. Publish.</h3>
 <p align="center">Turn a small idea into a thoughtful, evidence-aware, search-ready article.</p>
 
@@ -69,8 +67,6 @@ It is designed as a complete writing workflow rather than a one-click text gener
 
 Inkora should feel like a thoughtful writing desk: warm, quiet, tactile and focused. The visual language uses natural paper tones, deep ink-like typography and restrained terracotta accents.
 
-![Inkora AI brand mark](./public/brand/inkora-mark.svg)
-
 | Token | Suggested color | Usage |
 |---|---|---|
 | Warm ivory | `#F5EFE5` | Main canvas |
@@ -90,17 +86,6 @@ Inkora should feel like a thoughtful writing desk: warm, quiet, tactile and focu
 - Responsive layouts for mobile, tablet and desktop.
 - Light and dark themes, with the Warm Editorial palette defining the light experience.
 - Avoid glossy gradients, loud neon colors and unnecessary dashboard clutter.
-
-### Brand assets
-
-| Asset | Location | Purpose |
-|---|---|---|
-| App mark | `public/brand/inkora-mark.svg` | Current feather/book icon |
-| Workflow diagram | `docs/assets/inkora-workflow.svg` | Product journey |
-| Architecture diagram | `docs/assets/inkora-architecture.svg` | System overview |
-| Editor concept | `docs/assets/inkora-editor-preview.svg` | Illustrative future workspace |
-
-The editor visual is a **concept illustration**, not a screenshot of a completed feature. Keep that distinction clear in documentation and product demos.
 
 ## Architecture
 
