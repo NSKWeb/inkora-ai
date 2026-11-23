@@ -26,6 +26,8 @@ button, textarea, select { font: inherit; }
 
 .dark {
   color-scheme: dark;
+  background: var(--paper);
+  color: var(--ink);
   --paper: #211b18;
   --cream: #2b231f;
   --ink: #f4ede4;
@@ -34,7 +36,6 @@ button, textarea, select { font: inherit; }
   --mocha: #e9d8c8;
   --clay: #d49a7e;
 }
-.dark body { background: var(--paper); color: var(--ink); }
 .dark .paper-card { background: #2b231f; border-color: #493a32; }
 .dark .soft-panel { background: #332923; }
 .dark .muted-text { color: #b4a69a; }
