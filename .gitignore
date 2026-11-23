@@ -3,9 +3,12 @@ node_modules
 out
 build
 dist
+
+# Environment files: keep local and deployment secrets out of Git.
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+
 .vercel
 .netlify
 .DS_Store
