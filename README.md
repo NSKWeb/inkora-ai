@@ -1,7 +1,7 @@
 # Inkora AI
 
 <p align="center">
-  <img src="public/brand/inkora-mark.svg" width="92" alt="Inkora AI feather and open-book mark" />
+  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/public/brand/inkora-mark.svg" width="92" alt="Inkora AI feather and open-book mark" />
 </p>
 
 <h3 align="center">Research. Write. Publish.</h3>
@@ -43,7 +43,7 @@ It is designed as a complete writing workflow rather than a one-click text gener
 ## Product workflow
 
 <p align="center">
-  <img src="docs/assets/inkora-workflow.svg" alt="Inkora AI workflow: idea, research, outline and draft, review and refine, publish" width="100%">
+  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/docs/assets/inkora-workflow.svg" alt="Inkora AI workflow: idea, research, outline and draft, review and refine, publish" width="100%">
 </p>
 
 | Stage | What happens | Intended result |
@@ -74,7 +74,7 @@ It is designed as a complete writing workflow rather than a one-click text gener
 Inkora should feel like a thoughtful writing desk: warm, quiet, tactile and focused. The visual language uses natural paper tones, deep ink-like typography and restrained terracotta accents.
 
 <p align="center">
-  <img src="public/brand/inkora-mark.svg" alt="Inkora AI brand mark" width="100">
+  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/public/brand/inkora-mark.svg" alt="Inkora AI brand mark" width="100">
 </p>
 
 | Token | Suggested color | Usage |
@@ -113,8 +113,23 @@ The editor visual is a **concept illustration**, not a screenshot of a completed
 The system is intended to keep the interface, orchestration, research services, model providers, persistence and publishing adapters independent. This makes providers replaceable and helps prevent UI code from becoming coupled to a single AI vendor.
 
 <p align="center">
-  <img src="docs/assets/inkora-architecture.svg" alt="Inkora AI conceptual architecture showing experience, orchestration, research, model, data and delivery layers" width="100%">
+  <img src="https://raw.githubusercontent.com/NSKWeb/inkora-ai/main/docs/assets/inkora-architecture.svg" alt="Inkora AI conceptual architecture showing experience, orchestration, research, model, data and delivery layers" width="100%">
 </p>
+
+### How the architecture works
+
+The architecture is organized as a request-and-response pipeline. Each layer has a focused responsibility, so the UI does not call model or research vendors directly.
+
+1. **Experience layer — the writing desk:** The Next.js interface collects the topic, audience, tone, language and length. It displays the brief, outline, article editor, research sources and SEO review. It is responsible for presentation and user interaction.
+2. **Application orchestration — the coordinator:** The server-side workflow validates the brief, checks permissions and rate limits, tracks the current stage, and decides which research or model operations are needed. It coordinates jobs and handles provider errors and timeouts.
+3. **Research adapters — finding evidence:** A provider adapter sends a search request to an enabled research service, then normalizes returned pages into a consistent source format (title, URL, publisher and available metadata). Sources are presented for review; a search result is not automatically treated as proof that a claim is true.
+4. **Model adapters — working with AI:** The orchestration layer sends the relevant brief, outline and reviewed source context to a configured model provider. Adapters provide a common interface for drafting, rewriting and summarizing, while keeping vendor-specific request formats out of the UI.
+5. **Data and authentication — keeping work organized:** Supabase/PostgreSQL is the proposed home for accounts, projects, article drafts, settings and source records. Authentication and authorization must protect each user's data; server-only credentials stay on the server.
+6. **Delivery — exporting or publishing:** The article can be prepared for Markdown, HTML or DOCX export. The WordPress adapter is intended to create a draft first; publishing should require an explicit user confirmation.
+
+**Typical end-to-end flow:** User submits a brief → orchestration validates it → research adapters collect sources → the user reviews sources and outline → model adapter drafts sections → the user edits and checks claims/SEO → delivery exports the article or creates a WordPress draft.
+
+**Important boundary:** This is the target design. The README's implementation snapshot below identifies which parts are currently scaffolded and which remain planned. A box in the diagram does not mean that integration is already implemented.
 
 ### Architecture responsibilities
 
