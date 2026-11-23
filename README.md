@@ -101,6 +101,7 @@ The system is intended to keep the interface, orchestration, research services, 
 flowchart TB
     U["1. EXPERIENCE LAYER<br/>Next.js · React · TypeScript<br/>Brief form · workspace · editor · SEO review"]
     O["2. APPLICATION ORCHESTRATION<br/>Validates input · permissions · rate limits<br/>Workflow state · provider calls · job coordination"]
+    R["3. RESEARCH ADAPTERS<br/>Tavily · source normalization<br/>Search · metadata · review"]
     M["4. MODEL ADAPTERS<br/>Gemini · OpenRouter · Groq<br/>Draft · rewrite · summarize"]
     DB[("5. DATA & AUTHENTICATION<br/>Supabase · PostgreSQL<br/>Accounts · projects · drafts · source records")]
     P["6. DELIVERY & PUBLISHING<br/>Markdown · HTML · DOCX<br/>WordPress draft via REST API"]
