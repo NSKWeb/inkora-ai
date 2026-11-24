@@ -16,3 +16,4 @@ dist
 
 # TypeScript incremental build metadata
 *.tsbuildinfo
+audit-report.json
