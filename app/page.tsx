@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, BookOpen, Check, Feather, FileText, Moon, Search, Sparkles, Sun, WandSparkles } from "lucide-react";
+import { ArrowUpRight, BookOpen, Check, Feather, FileText, Search, Sparkles, WandSparkles } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 const lengths = [
   { label: "Quick", detail: "600–900 words" },
@@ -11,7 +12,6 @@ const lengths = [
 ];
 
 export default function Home() {
-  const [dark, setDark] = useState(false);
   const [topic, setTopic] = useState("");
   const [length, setLength] = useState("Standard");
   const [notice, setNotice] = useState("");
@@ -25,7 +25,7 @@ export default function Home() {
   }
 
   return (
-    <main className={dark ? "dark min-h-screen" : "min-h-screen"}>
+    <main className="min-h-screen">
       <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] transition-colors duration-300">
         <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
           <a href="#" className="flex items-center gap-3" aria-label="Inkora AI home">
@@ -42,9 +42,7 @@ export default function Home() {
             <a href="#workspace" className="transition hover:text-[var(--ink)]">Workspace</a>
             <a href="https://github.com/NSKWeb/inkora-ai" target="_blank" rel="noreferrer" className="transition hover:text-[var(--ink)]">GitHub <ArrowUpRight className="inline" size={13} /></a>
           </nav>
-          <button onClick={() => setDark(!dark)} className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--cream)] transition hover:-translate-y-0.5" aria-label="Toggle dark mode">
-            {dark ? <Sun size={17} /> : <Moon size={17} />}
-          </button>
+          <ThemeToggle />
         </header>
 
         <section className="mx-auto grid max-w-7xl items-center gap-14 px-6 pb-20 pt-12 lg:grid-cols-[1.02fr_0.98fr] lg:px-10 lg:pb-28 lg:pt-20">
@@ -81,7 +79,7 @@ export default function Home() {
               <span className="rounded-full bg-[var(--paper)] p-3 text-[var(--clay)]"><WandSparkles size={19} /></span>
             </div>
             <label htmlFor="topic" className="mb-3 block text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">What would you like to write about?</label>
-            <textarea id="topic" value={topic} onChange={(e) => { setTopic(e.target.value); setNotice(""); }} placeholder="e.g. A practical guide to building a timeless capsule wardrobe..." className="main-input min-h-44 w-full resize-y rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-5 text-sm leading-7 outline-none transition placeholder:text-[#a99c90] focus:border-[var(--clay)] focus:ring-4 focus:ring-[var(--clay)]/10" />
+            <textarea id="topic" value={topic} onChange={(e) => { setTopic(e.target.value); setNotice(""); }} placeholder="e.g. A practical guide to building a timeless capsule wardrobe..." className="main-input min-h-44 w-full resize-y rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-5 text-sm leading-7 outline-none transition placeholder:text-[#75685e] focus:border-[var(--clay)] focus:ring-4 focus:ring-[var(--clay)]/10" />
             <div className="mt-6">
               <div className="mb-3 flex items-center justify-between">
                 <label className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">Article length</label>

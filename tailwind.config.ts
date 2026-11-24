@@ -14,7 +14,7 @@ const config: Config = {
           cream: "#FBF8F2",
           mocha: "#49372F",
           espresso: "#2D211C",
-          clay: "#B8755B",
+          clay: "#94543B",
           sand: "#E8DED0"
         }
       },
