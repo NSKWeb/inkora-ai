@@ -370,13 +370,13 @@ Official links: [Groq Console](https://console.groq.com/) · [Quickstart](https:
 
 Official links: [Tavily Dashboard](https://app.tavily.com/) · [Pricing and free allowance](https://www.tavily.com/pricing)
 
-#### 7. Nara Router — optional, not included in the free-first baseline
+#### 6. Nara Router — optional, not included in the free-first baseline
 
 The repository may reserve `NARA_ROUTER_API_KEY` for a future adapter, but a free allowance has not been verified for this setup. Do not create an account, add payment details or depend on this provider as part of the no-cost setup until its current pricing, API contract, supported models and adapter implementation have been checked.
 
 Official documentation: [Nara Router API docs](https://router.bynara.id/docs)
 
-#### 8. Integration encryption key — generate locally
+#### 7. Integration encryption key — generate locally
 
 This is not an API-provider key and does not require an account. It is a random secret intended for encrypting stored integration credentials if/when that feature is implemented.
 

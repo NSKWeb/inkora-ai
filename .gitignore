@@ -4,6 +4,10 @@ out
 build
 dist
 
+# TypeScript and tooling caches
+*.tsbuildinfo
+.eslintcache
+
 # Environment files: keep local and deployment secrets out of Git.
 .env
 .env.*
